@@ -2,17 +2,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// Created a class for the songs with the titles, artists and number of plays
 class Song {
     private String title;
     private String artist;
     private double plays; // Number of times played in millions
 
+    // Constructor to initialize the song
     public Song(String title, String artist, double plays) {
         this.title = title;
         this.artist = artist;
         this.plays = plays;
     }
 
+    // Getter methods
     public String getTitle() {
         return title;
     }
@@ -25,19 +28,23 @@ class Song {
         return plays;
     }
 
+    // Method to increment the play count
     public void incrementPlays() {
         plays++;
     }
 
+    // String representation of the song
     @Override
     public String toString() {
         return title + " by " + artist + " (" + plays + " million plays)";
     }
 }
 
+// Created a class for the playlist
 public class SpotifyPlaylist {
     private List<Song> playlist;
 
+    // Constructor to initialize the playlist with initial songs
     public SpotifyPlaylist() {
         playlist = new ArrayList<>();
         // Adding initial songs
@@ -51,13 +58,15 @@ public class SpotifyPlaylist {
         playlist.add(new Song("Daylight", "David Kushner", 163.0));
         playlist.add(new Song("Strangers", "Kenya Grace", 207.0));
         playlist.add(new Song("Shameless", "Camila Cabello", 17.4));
-        // Add other initial songs...
+        // Add other initial songs...(optional)
     }
 
+    // Method to add a new song to the playlist
     public void addSong(String title, String artist, double plays) {
         playlist.add(new Song(title, artist, plays));
     }
 
+    // Method to remove a song from the playlist
     public void removeSong(String title) {
         Song songToRemove = null;
         for (Song song : playlist) {
@@ -74,6 +83,7 @@ public class SpotifyPlaylist {
         }
     }
 
+    // Method to list all songs in the playlist
     public void listAllSongs() {
         System.out.println("Spotify Playlist:");
         for (Song song : playlist) {
@@ -81,6 +91,7 @@ public class SpotifyPlaylist {
         }
     }
 
+    // Method to list play counts for all the songs
     public void listPlayCounts() {
         System.out.println("Play Counts:");
         for (Song song : playlist) {
@@ -88,6 +99,7 @@ public class SpotifyPlaylist {
         }
     }
 
+    // Method to list the songs with play counts over a specified threshold
     public void listSongsOverThreshold(double threshold) {
         System.out.println("Songs with play counts over " + threshold + " million plays:");
         for (Song song : playlist) {
@@ -97,12 +109,14 @@ public class SpotifyPlaylist {
         }
     }
 
+    // Main method to run the "SpotifyPlaylist" application
     public static void main(String[] args) {
         SpotifyPlaylist playlistManager = new SpotifyPlaylist();
 
         Scanner scanner = new Scanner(System.in);
         int choice;
 
+        // Menu-driven loop
         do {
             System.out.println("\nMenu:");
             System.out.println("1. Add a Song");
@@ -113,11 +127,12 @@ public class SpotifyPlaylist {
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Consume the newline
 
+            // Switch statement to handle the user choices
             switch (choice) {
                 case 1:
-                    // Add a new song with user input
+                    // Adds a new song with user input
                     System.out.print("Enter song title: ");
                     String title = scanner.nextLine();
                     System.out.print("Enter artist: ");
@@ -127,7 +142,7 @@ public class SpotifyPlaylist {
                         System.out.print("Enter play count (millions): ");
                         if (scanner.hasNextDouble()) {
                             plays = scanner.nextDouble();
-                            scanner.nextLine();
+                            scanner.nextLine(); // Consume the newline
                             break;
                         } else {
                             System.out.println("Invalid input. Please enter a valid number.");
@@ -138,7 +153,7 @@ public class SpotifyPlaylist {
                     System.out.println("Song added to the playlist.");
                     break;
                 case 2:
-                    // Remove a song with user input
+                    // Remove a song with the user input
                     System.out.print("Enter song title to remove: ");
                     String titleToRemove = scanner.nextLine();
                     playlistManager.removeSong(titleToRemove);
@@ -148,17 +163,17 @@ public class SpotifyPlaylist {
                     playlistManager.listAllSongs();
                     break;
                 case 4:
-                    // List play counts
+                    // List all play counts
                     playlistManager.listPlayCounts();
                     break;
                 case 5:
-                    // List songs over a threshold
+                    // List all songs over a threshold
                     double threshold;
                     while (true) {
                         System.out.print("Enter the play count threshold (millions): ");
                         if (scanner.hasNextDouble()) {
                             threshold = scanner.nextDouble();
-                            scanner.nextLine();
+                            scanner.nextLine(); // Consume the newline
                             break;
                         } else {
                             System.out.println("Invalid input. Please enter a valid number.");
@@ -168,7 +183,7 @@ public class SpotifyPlaylist {
                     playlistManager.listSongsOverThreshold(threshold);
                     break;
                 case 6:
-                    // Exit the program
+                    // Exits the program
                     System.out.println("Exiting the program.");
                     break;
                 default:
@@ -176,6 +191,7 @@ public class SpotifyPlaylist {
             }
         } while (choice != 6);
 
+        // Close the scanner
         scanner.close();
     }
 }
